@@ -32,7 +32,6 @@ filetype plugin indent on    " required
 "
 " ----------------------------------------------------------------
 "
-let g:syntastic_python_checkers=['flake8']
 set laststatus=2
 set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
 "set statusline+=%40{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}
