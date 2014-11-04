@@ -39,3 +39,5 @@ syntax on
 map <F3> <ESC>:set spell!<CR>
 " Toggle F4 paste mode
 map <F4> <ESC>:set paste!<CR>
+" Alternate option
+" :set pastetoggle=<f5>
