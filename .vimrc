@@ -76,5 +76,6 @@ map <F4> <ESC>:set paste!<CR>
 let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers = ['flake8']
 
-set colorcolumn=100
-highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+" Show PEP8 max line width only if editing .py files
+autocmd BufNewFile,BufRead *.py set colorcolumn=100
+autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
