@@ -79,3 +79,6 @@ let g:syntastic_python_checkers = ['flake8']
 " Show PEP8 max line width only if editing .py files
 autocmd BufNewFile,BufRead *.py set colorcolumn=100
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+
+# Add horizontally spanning line beneath current cursor position
+set cursorline 
