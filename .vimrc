@@ -15,6 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Bundle 'scrooloose/syntastic'
 
+Plugin 'hynek/vim-python-pep8-indent'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -85,3 +87,10 @@ autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Add horizontally spanning line beneath current cursor position
 set cursorline 
+
+" Completion assistance
+set wildmenu
+set wildmode=list:longest
+
+" Easier insert escape
+inoremap jk <esc>
