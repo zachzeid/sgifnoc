@@ -27,7 +27,7 @@ git_status() {
 }
 
 git_branch() {
-    if [[ -d .git ]]
+    if [[ -d .git ]] || git rev-parse --git-dir > /dev/null 2>&1
     then
         BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null) 
         echo "${WHITE} (${BRANCH})${RESET}$(git_status)"
