@@ -8,24 +8,29 @@ RESET="\e[0m\]"
 git_status() {
     STATUS=$(git status 2> /dev/null )
 
-    GSTATUS=""
     if [[ ${STATUS} =~ "Changes to be committed" ]]
     then
         GSTATUS="${GSTATUS}${GREEN}•${RESET}"
-    fi
+    fi 
 
     if [[ ${STATUS} =~ "Untracked" ]] || [[ ${STATUS} =~ "Changes not staged for commit" ]]
     then
         GSTATUS="${GSTATUS}${RED}×${RESET}"
     fi
-    echo "${GSTATUS}"
+
+    if [[ -z ${GSTATUS} ]]
+    then
+        echo ""
+    else
+        echo " ${GSTATUS}"
+    fi
 }
 
 git_branch() {
     if [[ -d .git ]]
     then
-        BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null )
-        echo "${WHITE} (${BRANCH})${RESET} $(git_status)"
+        BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null) 
+        echo "${WHITE} (${BRANCH})${RESET}$(git_status)"
     fi
 }
 
