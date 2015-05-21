@@ -39,6 +39,7 @@ set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
 "set statusline+=%40{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}
 
 set encoding=utf8
+set ttyfast
 
 set backspace=eol,start,indent
 set expandtab     " insert spaces when hitting TABs
@@ -87,6 +88,8 @@ autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Add horizontally spanning line beneath current cursor position
 set cursorline 
+" Add vertion line at cursor position
+set cursorcolumn
 
 " Completion assistance
 set wildmenu
