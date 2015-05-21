@@ -3,7 +3,7 @@ GREEN="\[\e[00;32m\]"
 YELLOW="\[\e[00;33m\]"
 CYAN="\[\e[00;36m\]"
 WHITE="\[\e[00;37m\]"
-RESET="\e[0m\]"
+RESET="\[\e[0m\]"
 
 git_status() {
     STATUS=$(git status 2> /dev/null )
