@@ -11,7 +11,7 @@ git_status() {
     if [[ ${STATUS} =~ "Changes to be committed" ]]
     then
         GSTATUS="${GSTATUS}${GREEN}•${RESET}"
-    fi 
+    fi
 
     if [[ ${STATUS} =~ "Untracked" ]] || [[ ${STATUS} =~ "Changes not staged for commit" ]]
     then
