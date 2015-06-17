@@ -14,6 +14,7 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Bundle 'scrooloose/syntastic'
+Bundle 'chase/vim-ansible-yaml'
 
 Plugin 'hynek/vim-python-pep8-indent'
 
@@ -39,7 +40,7 @@ set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
 "set statusline+=%40{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}
 
 set encoding=utf8
-set ttyfast
+set ttyfast 
 
 set backspace=eol,start,indent
 set expandtab     " insert spaces when hitting TABs
@@ -80,11 +81,14 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint']
+" Requires: npm install -g js-yaml
+let g:syntastic_yaml_checkers = ['jsyaml']
 
 " Show PEP8 max line width only if editing .py files
 autocmd BufNewFile,BufRead *.py set colorcolumn=100
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 autocmd BufRead,BufNewFile *.json set filetype=json
+autocmd BufRead,BufNewFile *.yml set filetype=yaml
 
 " Add horizontally spanning line beneath current cursor position
 set cursorline 
