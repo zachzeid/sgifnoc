@@ -70,6 +70,8 @@ set incsearch
 " Syntax highlighting
 syntax on
 
+" Toggle F2 for line numbering
+map <F2> <ESC>:set number!<CR>
 " Toggle F3 for spell check
 map <F3> <ESC>:set spell!<CR>
 " Toggle F4 paste mode
