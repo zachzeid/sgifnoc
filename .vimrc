@@ -85,7 +85,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_yaml_checkers = ['jsyaml']
 
 " Show PEP8 max line width only if editing .py files
-autocmd BufNewFile,BufRead *.py set colorcolumn=100
+autocmd BufNewFile,BufRead *.py set colorcolumn=81
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 autocmd BufRead,BufNewFile *.json set filetype=json
 autocmd BufRead,BufNewFile *.yml set filetype=yaml
