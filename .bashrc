@@ -63,3 +63,6 @@ export EDITOR=vim
 export LSCOLORS=ExFxCxDxBxegedabagacad
 export PROMPT_COMMAND=make_dat_ps1
 export PATH=$PATH:/usr/local/bin 
+. ~/.aliases
+# Source variables you do not want version controlled
+. ~/.boffline
