@@ -1,0 +1,15 @@
+[alias]
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+    # Abbreviated status
+    s = status -s
+
+    # Branches
+    bra = branch -a
+    brv = branch -v
+[user]
+	email = brian.nuszkowski@me.com
+	name = broamski
+[github]
+	user = broamski
