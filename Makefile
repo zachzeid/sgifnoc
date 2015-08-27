@@ -11,5 +11,6 @@ install:
 	@echo "so ~/.vim/.vimrc" > $(HOME)/.vimrc
 	@mkdir -p $(HOME)/.vim/
 	@ln -sf $(shell find `pwd` -name ".vimrc") $(HOME)/.vim/.vimrc
+	@vim +PluginInstall +qall
 
 .PHONY: install
