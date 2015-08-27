@@ -1,0 +1,7 @@
+## configuration files
+
+#### Installation
+
+```
+make
+```
