@@ -4,6 +4,8 @@
 
     # Abbreviated status
     s = status -s
+    ss = status -s
+    sl = status --long
 
     # Branches
     bra = branch -a
