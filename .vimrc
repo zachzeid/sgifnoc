@@ -81,6 +81,7 @@ map <F4> <ESC>:set paste!<CR>
 
 let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = "--max-line-length=80"
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint']
 " Requires: npm install -g js-yaml
