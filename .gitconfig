@@ -1,4 +1,8 @@
 [alias]
+    a = add
+    aa = add .
+    c = commit
+    cm = commit -m
     # View abbreviated SHA, description, and history graph of the latest 20 commits
     l = log -n 20 --pretty=format:\"%C(yellow)%H%Creset | %C(blue)%s%Creset | [%C(green)%ai%Creset - (%aE - %cn)]\"
 
@@ -17,3 +21,9 @@
 	name = broamski
 [github]
 	user = broamski
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
