@@ -1,0 +1,9 @@
+#!/bin/bash
+
+trash() {
+    if [ ! -z "$1" ]; then
+        mv $1 ~/.Trash/
+    else
+        echo "Empty input, not trashing anything."
+    fi
+}
