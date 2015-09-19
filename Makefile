@@ -21,11 +21,11 @@ ITERM_CONFIG=com.googlecode.iterm2.plist
 ITERM_CONFIG_PATH=/Users/$(USER)/Library/Preferences/$(ITERM_CONFIG)
 
 iterm-apply:
-	@echo $(ITERM_CONFIG) $(ITERM_CONFIG).binary
-	@plutil -convert binary1 $(ITERM_CONFIG).binary
-	@cp $(ITERM_CONFIG).binary $(ITERM_CONFIG_PATH)
+	@cp ./iterm2/$(ITERM_CONFIG) ./iterm2/$(ITERM_CONFIG).binary
+	@plutil -convert binary1 ./iterm2/$(ITERM_CONFIG).binary
+	@cp ./iterm2/$(ITERM_CONFIG).binary $(ITERM_CONFIG_PATH)
 	@defaults read $(ITERM_CONFIG_PATH)
-	@rm -f $(ITERM_CONFIG).binary
+	@rm -f ./iterm2/$(ITERM_CONFIG).binary
 
 iterm-capture:
 	@cp -f $(ITERM_CONFIG_PATH) ./iterm2/.
