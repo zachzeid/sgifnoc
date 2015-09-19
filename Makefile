@@ -8,6 +8,7 @@ install:
 	done
 
 	@echo "Installing vim dotfiles..."
+	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	@echo "so ~/.vim/.vimrc" > $(HOME)/.vimrc
 	@mkdir -p $(HOME)/.vim/
 	@ln -sf $(shell find `pwd` -name ".vimrc") $(HOME)/.vim/.vimrc
