@@ -60,7 +60,6 @@ make_dat_ps1() {
 
 export CLICOLOR=1
 export EDITOR=vim
-export LSCOLORS=ExFxCxDxBxegedabagacad
 export PROMPT_COMMAND=make_dat_ps1
 export PATH=$PATH:/usr/local/bin 
 . ~/.aliases
