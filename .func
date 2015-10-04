@@ -7,3 +7,12 @@ trash() {
         echo "Empty input, not trashing anything."
     fi
 }
+
+randomstring() {
+    if [ -z "$1" ]; then
+        LENGTH=24
+    else
+        LENGTH=$1
+    fi
+    cat /dev/urandom | env LC_CTYPE=C tr -dc a-zA-Z0-9 | head -c ${LENGTH}; echo
+}
