@@ -16,3 +16,13 @@ randomstring() {
     fi
     cat /dev/urandom | env LC_CTYPE=C tr -dc a-zA-Z0-9 | head -c ${LENGTH}; echo
 }
+
+dm() {
+    if [ -z "$1" ]; then
+        MACHINE_NAME=default
+    else
+        MACHINE_NAME=$1
+    fi
+    echo "Setting up docker-machine environment for machine: ${MACHINE_NAME}"
+    eval $(docker-machine env ${MACHINE_NAME})
+}
