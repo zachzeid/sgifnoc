@@ -47,15 +47,15 @@ colon_seperator() {
 }
 
 working_dir() {
-    echo "${CYAN}[\w]${RESET}"
+    echo "[${CYAN}\w${RESET}]"
 }
 
 divider() {
-    echo "${WHITE}❯❯${RESET}"
+    echo "${WHITE}❯${RESET}"
 }
 
 make_dat_ps1() {
-    PS1="$(tid) $(user_and_host)$(colon_seperator)$(working_dir)$(git_branch) $(divider) "
+    PS1="$(tid) $(user_and_host)$(working_dir)$(git_branch) $(divider) "
 }
 
 export CLICOLOR=1
