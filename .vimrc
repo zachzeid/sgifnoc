@@ -91,6 +91,7 @@ let g:syntastic_yaml_checkers = ['jsyaml']
 autocmd BufNewFile,BufRead *.py set colorcolumn=81
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 autocmd BufRead,BufNewFile *.json set filetype=json
+autocmd BufRead,BufNewFile *.template set filetype=json
 autocmd BufRead,BufNewFile *.yml set filetype=yaml
 
 " Add horizontally spanning line beneath current cursor position
