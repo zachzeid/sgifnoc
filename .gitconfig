@@ -16,6 +16,8 @@
     brv = branch -v
 
     d = diff
+
+    rp = remote prune origin
 [user]
 	email = brian.nuszkowski@me.com
 	name = broamski
