@@ -18,6 +18,7 @@
     d = diff
 
     rp = remote prune origin
+    pr = pull --rebase
 [user]
 	email = brian.nuszkowski@me.com
 	name = broamski
