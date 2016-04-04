@@ -26,3 +26,11 @@ dm() {
     echo "Setting up docker-machine environment for machine: ${MACHINE_NAME}"
     eval $(docker-machine env ${MACHINE_NAME})
 }
+
+geoip() {
+    if [ -z "$1" ]; then
+        echo "Must supply IP address"
+    else
+        curl -s "https://www.maxmind.com/geoip/v2.1/city/${1}?use-downloadable-db=1&demo=1" | python -c "import sys; import json; readin = sys.stdin.readlines(); payload = json.loads(readin[0]); print payload['traits']; print payload['city']['names']['en']; print payload['subdivisions'][0]['names']['en']"
+    fi
+}
