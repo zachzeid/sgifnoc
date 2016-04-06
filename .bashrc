@@ -65,4 +65,7 @@ export PATH=$PATH:/usr/local/bin:$HOME/checkout/arcanist/bin
 . ~/.aliases
 . ~/.func
 # Source variables you do not want version controlled
-. ~/.boffline
+if [ -f ~/.boffline ]
+then
+    . ~/.boffline
+fi
