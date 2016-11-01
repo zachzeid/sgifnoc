@@ -9,7 +9,7 @@ dotfiles:
 
 vim:
 	@echo "Installing vim dotfiles..."
-	@pip install flake8
+	@id=$$(id -u); if [ $$id -eq 0 ]; then pip install flake8; else sudo pip install flake8; fi
 	@rm -rf ~/.vim/bundle/Vundle.vim
 	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	@echo "so ~/.vim/.vimrc" > $(HOME)/.vimrc
