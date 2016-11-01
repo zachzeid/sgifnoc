@@ -90,6 +90,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 " Requires: npm install -g js-yaml
 let g:syntastic_yaml_checkers = ['jsyaml']
 
+autocmd BufNewFile,BufRead *.pp set filetype=puppet
 " Show PEP8 max line width only if editing .py files
 autocmd BufNewFile,BufRead *.py set colorcolumn=81
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
