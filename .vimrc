@@ -19,6 +19,7 @@ Bundle 'chase/vim-ansible-yaml'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'itchyny/lightline.vim'
+Plugin 'hashivim/vim-terraform'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
