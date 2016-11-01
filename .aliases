@@ -1,1 +1,4 @@
 alias ls="ls -lah"
+alias gpr="git pull --rebase"
+alias gs="git s"
+alias gd="git d"
