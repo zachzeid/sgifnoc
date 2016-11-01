@@ -18,6 +18,7 @@ Bundle 'chase/vim-ansible-yaml'
 
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plugin 'itchyny/lightline.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -37,7 +38,8 @@ filetype plugin indent on    " required
 " ----------------------------------------------------------------
 "
 set laststatus=2
-set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
+" non-lightline status bar
+"set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
 "set statusline+=%40{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}
 
 set encoding=utf8
@@ -106,3 +108,10 @@ set wildmode=list:longest
 
 " Easier insert escape
 inoremap jk <esc>
+
+" lightline customizations
+let g:lightline = {
+      \ 'component': {
+      \   'lineinfo': "%{printf('R%04d/C%04d of %d', line('.'), col('.'), line('$'))}",
+      \ },
+      \ }
