@@ -3,7 +3,15 @@
 #### Installation
 
 ```
-make
+make - Sets up standard dotfiles, vim and iterm
+
+```
+
+```
+make dotfiles
+make vim
+make iterm-apply
+make iterm-capture
 ```
 
 ##### Apps
