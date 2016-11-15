@@ -34,3 +34,26 @@ geoip() {
         curl -s "https://www.maxmind.com/geoip/v2.1/city/${1}?use-downloadable-db=1&demo=1" | python -c "import sys; import json; readin = sys.stdin.readlines(); payload = json.loads(readin[0]); print json.dumps(payload, indent=4, separators=(',', ': '))"
     fi
 }
+
+pub2pem() {
+    openssl rsa -in $1 -pubout > $1.pem
+}
+
+enc() {
+    if [[ -z "$1" || -z "$2" ]]; then
+        echo "arg 1 = file to encrypt"
+        echo "arg 2 = public key in pem format (you can run pub2pem"
+    else
+        cat $1 | openssl rsautl -encrypt -pubin -inkey $2 > $1.enc
+    fi
+}
+
+dec() {
+    if [[ -z "$1" || -z "$2" || -z $3 ]]; then
+        echo "arg 1 = file to decrypt"
+        echo "arg 2 = private key"
+        echo "arg 3 = plaintext output file name for decrypted text"
+    else
+        cat $1 | openssl rsautl -decrypt -inkey $2 > $3
+    fi
+}
