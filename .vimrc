@@ -15,6 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Bundle 'scrooloose/syntastic'
 Bundle 'chase/vim-ansible-yaml'
+Bundle 'fatih/vim-go'
 
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
