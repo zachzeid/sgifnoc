@@ -1,4 +1,9 @@
-alias ls="ls -lah --color=auto"
+if [ $(uname) == "Darwin" ]; then
+    alias ls="ls -lah"
+fi
+if [ $(uname) == "Linux" ]; then
+    alias ls="ls -lah --color=auto"
+fi
 alias gpr="git pull --rebase"
 alias gs="git s"
 alias gd="git d"
