@@ -16,6 +16,8 @@ Plugin 'gmarik/Vundle.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'chase/vim-ansible-yaml'
 Bundle 'fatih/vim-go'
+Bundle 'rodjek/vim-puppet'
+Bundle 'airblade/vim-gitgutter'
 
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
@@ -91,6 +93,7 @@ let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint']
 " Requires: npm install -g js-yaml
 let g:syntastic_yaml_checkers = ['jsyaml']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 autocmd BufNewFile,BufRead *.pp set filetype=puppet
 " Show PEP8 max line width only if editing .py files
