@@ -36,15 +36,27 @@ geoip() {
 }
 
 pub2pem() {
-    openssl rsa -in $1 -pubout > $1.pem
+    ssh-keygen -f $1 -e -m PKCS8 > $1.pem
 }
 
 enc() {
     if [[ -z "$1" || -z "$2" ]]; then
         echo "arg 1 = file to encrypt"
-        echo "arg 2 = public key in pem format (you can run pub2pem"
+        echo "arg 2 = public key in pem format (you can run pub2pem)"
     else
         cat $1 | openssl rsautl -encrypt -pubin -inkey $2 > $1.enc
+    fi
+}
+
+enc_large() {
+    if [[ -z "$1" || -z "$2" ]]; then
+        echo "arg 1 = file to encrypt"
+        echo "arg 2 = public key in pem format (you can run pub2pem)"
+    else
+        KEY_NAME=$1.key
+        openssl rand -base64 128 -out $KEY_NAME
+        openssl enc -aes-256-cbc -salt -in $1 -out $1.enc -pass file:./$KEY_NAME
+        openssl rsautl -encrypt -inkey $2 -pubin -in $KEY_NAME -out $KEY_NAME.enc
     fi
 }
 
@@ -55,5 +67,21 @@ dec() {
         echo "arg 3 = plaintext output file name for decrypted text"
     else
         cat $1 | openssl rsautl -decrypt -inkey $2 > $3
+    fi
+}
+
+
+dec_large() {
+    if [[ -z "$1" || -z "$2" || -z $3 || -z $4 ]]; then
+        echo "arg 1 = file to decrypt"
+        echo "arg 2 = encrypted key"
+        echo "arg 3 = private key"
+        echo "arg 4 = plaintext output file name for decrypted text"
+    else
+        TEMP_UNENCRYPTED_KEY=$(mktemp ./u_key.XXXX)
+        openssl rsautl -decrypt -inkey $3 -in $2 -out $TEMP_UNENCRYPTED_KEY
+        openssl enc -d -aes-256-cbc -in $1 -out $4 -pass file:./$TEMP_UNENCRYPTED_KEY
+        rm $TEMP_UNENCRYPTED_KEY
+
     fi
 }
