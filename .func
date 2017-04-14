@@ -85,3 +85,15 @@ dec_large() {
 
     fi
 }
+
+looper() {
+    if [[ -z "$LOOPER_MAX" ]]; then
+        MAX=5000
+    else
+        MAX=$LOOPER_MAX
+    fi
+    for i in $(seq 1 $MAX); do
+        $1
+        sleep 1
+    done
+}
