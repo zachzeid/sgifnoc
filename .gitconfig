@@ -20,7 +20,7 @@
     rp = remote prune origin
     pr = pull --rebase
 [user]
-	email = zach.zeid@thinkahead.com
+	email = zach.zeid@gmail.com
 	name = zach.zeid
 [github]
 	user = zachzeid
