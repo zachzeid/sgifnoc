@@ -31,6 +31,69 @@ geoip() {
     if [ -z "$1" ]; then
         echo "Must supply IP address"
     else
-        curl -s "https://www.maxmind.com/geoip/v2.1/city/${1}?use-downloadable-db=1&demo=1" | python -c "import sys; import json; readin = sys.stdin.readlines(); payload = json.loads(readin[0]); print payload['traits']; print payload['city']['names']['en']; print payload['subdivisions'][0]['names']['en']"
+        curl -s "https://www.maxmind.com/geoip/v2.1/city/${1}?use-downloadable-db=1&demo=1" | python -c "import sys; import json; readin = sys.stdin.readlines(); payload = json.loads(readin[0]); print json.dumps(payload, indent=4, separators=(',', ': '))"
     fi
+}
+
+pub2pem() {
+    ssh-keygen -f $1 -e -m PKCS8 > $1.pem
+}
+
+enc() {
+    if [[ -z "$1" || -z "$2" ]]; then
+        echo "arg 1 = file to encrypt"
+        echo "arg 2 = public key in pem format (you can run pub2pem)"
+    else
+        cat $1 | openssl rsautl -encrypt -pubin -inkey $2 > $1.enc
+    fi
+}
+
+enc_large() {
+    if [[ -z "$1" || -z "$2" ]]; then
+        echo "arg 1 = file to encrypt"
+        echo "arg 2 = public key in pem format (you can run pub2pem)"
+    else
+        KEY_NAME=$1.key
+        openssl rand -base64 128 -out $KEY_NAME
+        openssl enc -aes-256-cbc -salt -in $1 -out $1.enc -pass file:./$KEY_NAME
+        openssl rsautl -encrypt -inkey $2 -pubin -in $KEY_NAME -out $KEY_NAME.enc
+    fi
+}
+
+dec() {
+    if [[ -z "$1" || -z "$2" || -z $3 ]]; then
+        echo "arg 1 = file to decrypt"
+        echo "arg 2 = private key"
+        echo "arg 3 = plaintext output file name for decrypted text"
+    else
+        cat $1 | openssl rsautl -decrypt -inkey $2 > $3
+    fi
+}
+
+
+dec_large() {
+    if [[ -z "$1" || -z "$2" || -z $3 || -z $4 ]]; then
+        echo "arg 1 = file to decrypt"
+        echo "arg 2 = encrypted key"
+        echo "arg 3 = private key"
+        echo "arg 4 = plaintext output file name for decrypted text"
+    else
+        TEMP_UNENCRYPTED_KEY=$(mktemp ./u_key.XXXX)
+        openssl rsautl -decrypt -inkey $3 -in $2 -out $TEMP_UNENCRYPTED_KEY
+        openssl enc -d -aes-256-cbc -in $1 -out $4 -pass file:./$TEMP_UNENCRYPTED_KEY
+        rm $TEMP_UNENCRYPTED_KEY
+
+    fi
+}
+
+looper() {
+    if [[ -z "$LOOPER_MAX" ]]; then
+        MAX=5000
+    else
+        MAX=$LOOPER_MAX
+    fi
+    for i in $(seq 1 $MAX); do
+        $1
+        sleep 1
+    done
 }

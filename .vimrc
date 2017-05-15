@@ -15,8 +15,14 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Bundle 'scrooloose/syntastic'
 Bundle 'chase/vim-ansible-yaml'
+Bundle 'fatih/vim-go'
+Bundle 'rodjek/vim-puppet'
+Bundle 'airblade/vim-gitgutter'
 
 Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plugin 'itchyny/lightline.vim'
+Plugin 'hashivim/vim-terraform'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -36,7 +42,8 @@ filetype plugin indent on    " required
 " ----------------------------------------------------------------
 "
 set laststatus=2
-set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
+" non-lightline status bar
+"set statusline=%F%m%r\ %l:%c\ (%L\ total)\ %p%%
 "set statusline+=%40{strftime(\"%l:%M:%S\ \%p,\ %a\ %b\ %d,\ %Y\")}
 
 set encoding=utf8
@@ -86,7 +93,9 @@ let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint']
 " Requires: npm install -g js-yaml
 let g:syntastic_yaml_checkers = ['jsyaml']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
+autocmd BufNewFile,BufRead *.pp set filetype=puppet
 " Show PEP8 max line width only if editing .py files
 autocmd BufNewFile,BufRead *.py set colorcolumn=81
 autocmd BufNewFile,BufRead *.py highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
@@ -105,3 +114,10 @@ set wildmode=list:longest
 
 " Easier insert escape
 inoremap jk <esc>
+
+" lightline customizations
+let g:lightline = {
+      \ 'component': {
+      \   'lineinfo': "%{printf('R%04d/C%04d of %d', line('.'), col('.'), line('$'))}",
+      \ },
+      \ }
