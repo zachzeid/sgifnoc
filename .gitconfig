@@ -4,7 +4,7 @@
     c = commit
     cm = commit -m
     # View abbreviated SHA, description, and history graph of the latest 20 commits
-    l = log -n 20 --pretty=format:\"[ %C(yellow)%H%Creset ] - %C(green)%ai%Creset - (%aE - %cn) \n --| %C(blue)%s%Creset\"
+    l = log --pretty=format:\"[ %C(yellow)%H%Creset ] - %C(green)%ai%Creset - (%aE - %cn) \n --| %C(blue)%s%Creset\"
 
     # Abbreviated status
     s = status -s
