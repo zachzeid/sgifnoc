@@ -51,7 +51,7 @@ working_dir() {
 }
 
 divider() {
-    echo "${WHITE}❯${RESET}"
+    echo "${WHITE}❯${RESET}${GREEN}❯${RESET}${WHITE}❯${RESET}"
 }
 
 # Legacy: PS1="$(tid) $(user_and_host)$(working_dir)$(git_branch) $(divider) "
