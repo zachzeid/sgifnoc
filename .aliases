@@ -1,7 +1,6 @@
 if [ $(uname) == "Darwin" ]; then
     alias ls="ls -lah"
-fi
-if [ $(uname) == "Linux" ]; then
+elif [ $(uname) == "Linux" ]; then
     alias ls="ls -lah --color=auto"
 fi
 alias gpr="git pull --rebase"
