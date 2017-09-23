@@ -63,7 +63,7 @@ export CLICOLOR=1
 export TERM=xterm-256color
 export EDITOR=vim
 export PROMPT_COMMAND=make_dat_ps1
-export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/bin:$HOME/go
 . ~/.aliases
 . ~/.func
 # Source variables you do not want version controlled
