@@ -24,6 +24,9 @@ Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'itchyny/lightline.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'fatih/vim-hclfmt'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'hashicorp/sentinel.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,6 +89,8 @@ map <F3> <ESC>:set spell!<CR>
 map <F4> <ESC>:set paste!<CR>
 " Alternate option
 ":set pastetoggle=<f5>
+"
+map <F5> <ESC>:%!python -mjson.tool<CR>
 
 let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers = ['flake8']
