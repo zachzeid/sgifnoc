@@ -51,7 +51,7 @@ working_dir() {
 }
 
 divider() {
-    echo "${WHITE}❯${RESET}"
+    echo "${WHITE}❯${RESET}${GREEN}❯${RESET}${WHITE}❯${RESET}"
 }
 
 # Legacy: PS1="$(tid) $(user_and_host)$(working_dir)$(git_branch) $(divider) "
@@ -63,7 +63,8 @@ export CLICOLOR=1
 export TERM=xterm-256color
 export EDITOR=vim
 export PROMPT_COMMAND=make_dat_ps1
-export PATH=$PATH:/usr/local/bin:$HOME/checkout/arcanist/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/bin:$GOPATH:/usr/local/go/bin:$HOME/bin
 . ~/.aliases
 . ~/.func
 # Source variables you do not want version controlled
