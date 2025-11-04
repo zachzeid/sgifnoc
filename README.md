@@ -16,6 +16,8 @@ Quick setup on macOS (recommended):
 make setup
 ```
 
+Optional (recommended): install the GitHub CLI (`gh`) to allow creating PRs quickly from your terminal. The Makefile `deps` target will install `gh` for you on macOS.
+
 What this does:
 - installs or validates Homebrew packages needed to build Python (xz, openssl, readline)
 - installs `pyenv` via Homebrew if missing

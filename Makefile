@@ -11,7 +11,7 @@ BrewCmd := $(shell command -v brew 2>/dev/null || echo /opt/homebrew/bin/brew)
 
 deps:
 	@echo "Using brew: $(BrewCmd)"
-	@$(BrewCmd) install xz openssl readline pyenv || true
+	@$(BrewCmd) install xz openssl readline pyenv gh || true
 
 pyenv-install: deps
 	@if ! command -v pyenv >/dev/null 2>&1; then \
