@@ -60,14 +60,20 @@ configure-poetry:
 
 setup: pyenv-install python-install poetry-install configure-poetry
 	@echo "Setup complete. Open a new shell or source your shell profile to pick up pyenv/poetry." 
-install: dotfiles vim iterm-apply
+install: dotfiles zsh vim iterm-apply
 
-dotfiles: 
+dotfiles:
 	@echo "Installing non-vim dotfiles..."
 	@for full_file_path in $(shell find `pwd` -name ".*" -not -name ".git" -not -name ".vimrc"); do \
 		ff=$$(basename $$full_file_path); \
 		ln -sf $$full_file_path $(HOME)/$$ff; \
 	done
+
+zsh:
+	@echo "Installing zsh configuration files..."
+	@ln -sf $(shell pwd)/scripts/zsh/zshrc $(HOME)/.zshrc
+	@ln -sf $(shell pwd)/scripts/zsh/zshenv $(HOME)/.zshenv
+	@echo "Zsh configs installed. Restart your shell or run: source ~/.zshrc"
 
 vim:
 	@echo "Installing vim dotfiles..."
@@ -94,4 +100,4 @@ iterm-capture:
 	@plutil -convert xml1 ./iterm2/$(ITERM_CONFIG)
 
 
-.PHONY: install dotfiles vim iterm-apply iterm-capture
+.PHONY: install dotfiles zsh vim iterm-apply iterm-capture
