@@ -1,0 +1,53 @@
+name: CI macOS setup
+
+on:
+  push:
+    branches: ["master", "setup/pyenv-poetry-macos"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  setup-macos:
+    name: macOS setup smoke tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Homebrew packages
+        run: |
+          brew update || true
+          brew install xz openssl readline pyenv gh || true
+
+      - name: Initialize pyenv
+        run: |
+          export PYENV_ROOT="$HOME/.pyenv"
+          export PATH="$PYENV_ROOT/bin:$PATH"
+          eval "$(pyenv init --path)" || true
+
+      - name: Install Python from .python-version
+        run: |
+          PY_VERSION=$(cat .python-version)
+          XZ_PREFIX=$(brew --prefix xz)
+          OPENSSL_PREFIX=$(brew --prefix openssl || true)
+          export LDFLAGS="-L${XZ_PREFIX}/lib ${OPENSSL_PREFIX:+-L${OPENSSL_PREFIX}/lib}"
+          export CPPFLAGS="-I${XZ_PREFIX}/include ${OPENSSL_PREFIX:+-I${OPENSSL_PREFIX}/include}"
+          export PKG_CONFIG_PATH="${XZ_PREFIX}/lib/pkgconfig:${OPENSSL_PREFIX:+${OPENSSL_PREFIX}/lib/pkgconfig}:$PKG_CONFIG_PATH"
+          env LDFLAGS="$LDFLAGS" CPPFLAGS="$CPPFLAGS" PKG_CONFIG_PATH="$PKG_CONFIG_PATH" pyenv install -s "$PY_VERSION"
+
+      - name: Verify lzma module
+        run: |
+          PY_VERSION=$(cat .python-version)
+          ~/.pyenv/versions/$PY_VERSION/bin/python3 -c "import lzma; print('lzma OK')"
+
+      - name: Install Poetry using pyenv Python
+        run: |
+          PY_VERSION=$(cat .python-version)
+          ~/.pyenv/versions/$PY_VERSION/bin/python3 -c "print('Using', __import__('sys').version)"
+          curl -sSL https://install.python-poetry.org | ~/.pyenv/versions/$PY_VERSION/bin/python3 -
+
+      - name: Verify Poetry is installed
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          poetry --version
