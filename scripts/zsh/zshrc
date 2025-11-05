@@ -115,16 +115,16 @@ export SGIFNOC_LOADED=true
 prq() {
   local title="$1"
   local body="$2"
-  local base="${3:-master}"
-  
+  local base="${3:-main}"
+
   if [[ -z "$title" ]]; then
     # Try to get title from last commit
     title=$(git log -1 --pretty=format:'%s')
   fi
-  
+
   if [[ -z "$body" ]]; then
     # Generate body from recent commits
-    body=$(git log --oneline master..HEAD | sed 's/^[a-f0-9]* /- /')
+    body=$(git log --oneline main..HEAD | sed 's/^[a-f0-9]* /- /')
   fi
   
   echo "Creating PR:"

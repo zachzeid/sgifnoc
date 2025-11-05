@@ -2,9 +2,9 @@ name: CI macOS setup
 
 on:
   push:
-    branches: ["master", "setup/pyenv-poetry-macos"]
+    branches: ["main", "setup/pyenv-poetry-macos"]
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
 
 jobs:
   setup-macos:
