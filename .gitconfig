@@ -1,32 +1,128 @@
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+    safecrlf = true
+    pager = less -FRX
+
+[user]
+    # Default user configuration
+    # Note: These are Zach's default settings - modify as needed for your own installation
+    name = zach.zeid
+    email = zach.zeid@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICCF3I3uEhYVqzmIgfBpz9Bx9ddDwfFbZDEneXFFBoap
+
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+
+[color "branch"]
+    current = yellow bold
+    local = green bold
+    remote = cyan bold
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = green bold
+    changed = yellow bold
+    untracked = red bold
+
 [alias]
+    # Status aliases
+    s = status -s
+    ss = status -s
+    sl = status --long
+    st = status
+
+    # Add and commit aliases
     a = add
     aa = add .
     c = commit
     cm = commit -m
-    # View abbreviated SHA, description, and history graph of the latest 20 commits
-    l = log --pretty=format:\"[ %C(yellow)%H%Creset ] - %C(green)%ai%Creset - (%aE - %cn) \n --| %C(blue)%s%Creset\"
+    ci = commit
+    amend = commit --amend
 
-    # Abbreviated status
-    s = status -s
-    ss = status -s
-    sl = status --long
-
-    # Branches
+    # Checkout and branch aliases
+    co = checkout
+    br = branch
     bra = branch -a
     brv = branch -v
+    branches = branch -a
 
+    # Log aliases
+    l = log --pretty=format:"[ %C(yellow)%H%Creset ] - %C(green)%ai%Creset - (%aE - %cn) \n --| %C(blue)%s%Creset"
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    last = log -1 HEAD
+
+    # Other useful aliases
     d = diff
-
     rp = remote prune origin
     pr = pull --rebase
-[user]
-	email = zach.zeid@gmail.com
-	name = zach.zeid
+    unstage = reset HEAD --
+    discard = checkout --
+    remotes = remote -v
+    tags = tag -l
+    stashes = stash list
+    root = rev-parse --show-toplevel
+    visual = !gitk
+
+[push]
+    default = simple
+
+[pull]
+    rebase = false
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+
+[help]
+    autocorrect = 1
+
+[credential]
+    helper = cache --timeout=3600
+
+[init]
+    defaultBranch = main
+
 [github]
-	user = zachzeid
-[color]
-  diff = auto
-  status = auto
-  branch = auto
-  interactive = auto
-  ui = true
+    user = zachzeid
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+    gpgsign = true
+
+[url "git@github.com"]
+    insteadOf = https://github.com
+
+[url "git@github.com:"]
+    insteadof = https://github.com/
+
+# Include local configuration if it exists
+[include]
+    path = ~/.gitconfig.local
+
+# Use different settings for specific directories
+# Example:
+# [includeIf "gitdir:~/work/"]
+#     path = ~/.gitconfig.work

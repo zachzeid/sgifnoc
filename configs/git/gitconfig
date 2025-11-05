@@ -1,3 +1,7 @@
+# Note: This is a template/reference file.
+# The active configuration is in /.gitconfig at the repository root,
+# which gets symlinked to ~/.gitconfig via 'make dotfiles'
+
 [core]
     editor = vim
     excludesfile = ~/.gitignore_global
