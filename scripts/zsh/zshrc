@@ -22,8 +22,8 @@ fi
 # Path to oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
-# Theme
-ZSH_THEME="robbyrussell"
+# Theme - using custom prompt instead
+# ZSH_THEME="robbyrussell"
 
 # Plugins
 plugins=(
@@ -42,6 +42,70 @@ else
     echo "Oh-My-Zsh not found. Please install it: https://ohmyz.sh/"
 fi
 
+# Custom prompt configuration with git status
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Configure vcs_info for git
+zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' actionformats '%b|%a'
+
+# Git status function
+git_prompt_status() {
+  local git_status=""
+  
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    # Check for uncommitted changes
+    if ! git diff --quiet 2>/dev/null; then
+      git_status="$git_status●"  # Modified files
+    fi
+    
+    # Check for staged changes
+    if ! git diff --cached --quiet 2>/dev/null; then
+      git_status="$git_status+"  # Staged files
+    fi
+    
+    # Check for untracked files
+    if [ -n "$(git ls-files --others --exclude-standard 2>/dev/null)" ]; then
+      git_status="$git_status?"  # Untracked files
+    fi
+    
+    # Check if ahead/behind remote
+    local ahead_behind=$(git rev-list --count --left-right HEAD...@{upstream} 2>/dev/null)
+    if [[ $? -eq 0 ]]; then
+      local ahead=$(echo $ahead_behind | cut -f1)
+      local behind=$(echo $ahead_behind | cut -f2)
+      if [[ $ahead -gt 0 ]]; then
+        git_status="$git_status↑$ahead"
+      fi
+      if [[ $behind -gt 0 ]]; then
+        git_status="$git_status↓$behind"
+      fi
+    fi
+  fi
+  
+  echo $git_status
+}
+
+# Python virtual environment info
+python_env() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo " ($(basename $VIRTUAL_ENV))"
+  elif [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+    echo " (conda:$CONDA_DEFAULT_ENV)"
+  elif command -v pyenv >/dev/null && [[ $(pyenv version-name) != "system" ]]; then
+    echo " (py:$(pyenv version-name))"
+  fi
+}
+
+# Custom prompt
+setopt PROMPT_SUBST
+PROMPT='%{$fg[cyan]%}%c%{$reset_color%}'  # Current directory in cyan
+PROMPT+='%{$fg[blue]%}$(python_env)%{$reset_color%}'  # Python env in blue
+PROMPT+='%{$fg[green]%}${vcs_info_msg_0_:+ ($vcs_info_msg_0_)}%{$reset_color%}'  # Branch in green
+PROMPT+='%{$fg[red]%}$(git_prompt_status)%{$reset_color%}'  # Git status in red
+PROMPT+=' %{$fg[yellow]%}❯%{$reset_color%} '  # Prompt symbol in yellow
+
 # Python development settings
 export PYTHONDONTWRITEBYTECODE=1  # Prevent Python from writing .pyc files
 export PYTHONUNBUFFERED=1         # Prevent Python from buffering stdout and stderr
@@ -57,8 +121,74 @@ alias pipreq="pip freeze > requirements.txt"
 alias gs="git status"
 alias gp="git pull"
 alias gc="git commit"
-alias gch="git checkout"
 alias gb="git branch"
+alias ga="git add"
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias gl="git log --oneline -10"
+alias gll="git log --oneline --graph --decorate --all"
+alias gf="git fetch"
+alias gps="git push"
+alias gst="git stash"
+alias gstp="git stash pop"
+
+# GitHub CLI aliases
+alias ghpr="gh pr create"
+alias ghprs="gh pr status"
+alias ghprv="gh pr view"
+alias ghprl="gh pr list"
+
+# Git functions
+gcob() {
+  if [ $# -eq 0 ]; then
+    git checkout $(git branch -a | fzf | sed 's/remotes\/origin\///' | sed 's/\*//' | awk '{print $1}')
+  else
+    git checkout "$@"
+  fi
+}
+
+# GitHub PR creation with smart defaults
+gpr() {
+  local base_branch=${1:-master}
+  local current_branch=$(git branch --show-current)
+  local title=""
+  local body=""
+  
+  # Generate title from branch name if not provided
+  if [[ -z "$2" ]]; then
+    # Convert branch name to title (e.g., feature/add-auth -> Add auth)
+    title=$(echo "$current_branch" | sed 's/.*\///' | sed 's/-/ /g' | sed 's/\b\w/\U&/g')
+  else
+    title="$2"
+  fi
+  
+  # Generate body from recent commits if not provided
+  if [[ -z "$3" ]]; then
+    body="## Changes\n\n$(git log --oneline $base_branch..HEAD | sed 's/^/- /')\n\n## Description\n\nThis PR includes the changes from the $current_branch branch."
+  else
+    body="$3"
+  fi
+  
+  echo "Creating PR:"
+  echo "  From: $current_branch"
+  echo "  To: $base_branch"
+  echo "  Title: $title"
+  echo ""
+  
+  /opt/homebrew/bin/gh pr create --title "$title" --body "$body" --base "$base_branch"
+}
+
+# Show git status in a more readable format
+ginfo() {
+  echo "=== Git Status ==="
+  git status --short
+  echo ""
+  echo "=== Branch Info ==="
+  git branch -vv
+  echo ""
+  echo "=== Recent Commits ==="
+  git log --oneline -5
+}
 
 # Directory shortcuts
 alias proj="cd ~/Projects"
